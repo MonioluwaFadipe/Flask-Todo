@@ -11,7 +11,7 @@ db = SQLAlchemy(app)
 def index():
     todo_list = Todo.query.all()
     print(todo_list)
-    return render_template('base.html')
+    return render_template('base.html', todo_list=todo_list)
 
 @app.route('/about')
 def about():
