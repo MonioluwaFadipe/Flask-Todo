@@ -14,6 +14,11 @@ def index():
 def about():
     return "About"
 
+class Todo(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100))
+    complete = db.Column(db.Boolean)
+
 if __name__ == "__main__":
     db.create_all()
     app.run(debug=True)
