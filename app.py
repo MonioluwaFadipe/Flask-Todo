@@ -1,5 +1,4 @@
-from turtle import title
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -16,6 +15,14 @@ def index():
 @app.route('/about')
 def about():
     return "About"
+
+@app.route('/add', methods=['POST'])
+def add():
+    title = request.form.get('title')
+    new_todo = Todo(title=title, complete=False)
+    db.session.add(new_todo)
+    db.session.commit()
+    return redirect(url_for("index"))
 
 class Todo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
