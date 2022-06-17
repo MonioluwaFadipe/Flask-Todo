@@ -1,3 +1,4 @@
+from turtle import title
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 
@@ -8,6 +9,8 @@ db = SQLAlchemy(app)
 
 @app.route('/')
 def index():
+    todo_list = Todo.query.all()
+    print(todo_list)
     return render_template('base.html')
 
 @app.route('/about')
@@ -21,4 +24,7 @@ class Todo(db.Model):
 
 if __name__ == "__main__":
     db.create_all()
+    new_todo = Todo(title="Todo 1", complete=False)
+    db.session.add(new_todo)
+    db.session.commit()
     app.run(debug=True)
